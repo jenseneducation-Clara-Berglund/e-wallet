@@ -3,14 +3,14 @@
     <Card
       v-for="(card, index) in cards"
       :style="{ marginTop: index > 0 ? '-11em' : '0em' }"
-      :key="card.cardnumber"
+      :key="JSON.stringify(card)"
       :color="card.color"
       :cardnumber="card.cardnumber"
-      :cardholder="card.cardholder"
       :cardname="card.cardname"
       :validthru="card.validthru"
       :validdate="card.validdate"
       :vendor="card.vendor"
+      :onClick="() => chooseCard(card)"
     />
   </div>
 </template>
@@ -19,7 +19,8 @@ import Card from "./Card.vue";
 export default {
   name: "CardStack",
   props: {
-    cards: Array
+    cards: Array,
+    chooseCard: Function
   },
   components: {
     Card

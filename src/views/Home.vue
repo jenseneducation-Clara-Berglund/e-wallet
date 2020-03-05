@@ -3,18 +3,24 @@
     <Header title="E-WALLET" />
     <h2>ACTIVE CARD</h2>
     <Card
-      color="orange"
-      cardnumber="1234 5678 9101 1123"
-      cardholder="CARDHOLDER NAME"
-      cardname="CHRISTOFFER WALLENBERG"
-      validthru="VALID THRU"
-      validdate="12/22"
-      vendor="bitcoin"
+      v-if="chosenCard !== null"
+      :color="chosenCard.color"
+      :cardnumber="chosenCard.cardnumber"
+      :cardname="chosenCard.cardname"
+      :validdate="chosenCard.validdate"
+      :vendor="chosenCard.vendor"
+      :onClick="() => {}"
     />
 
-    <CardStack style="margin-top:2em;" v-bind:cards="cards" />
+    <CardStack
+      style="margin-top:2em;"
+      v-bind:cards="cards.filter(c => c.cardnumber !== chosenCard.cardnumber)"
+      v-bind:chooseCard="chooseCard"
+    />
 
-    <button class="addANewCardButton">ADD A NEW CARD</button>
+    <button v-on:click="addNewCard" class="addANewCardButton">
+      ADD A NEW CARD
+    </button>
   </div>
 </template>
 
@@ -25,28 +31,19 @@ import CardStack from "../components/CardStack.vue";
 
 export default {
   name: "Home",
+  methods: {
+    addNewCard: function() {
+      window.location = "/AddCard";
+    },
+    chooseCard: function(card) {
+      this.chosenCard = card;
+      localStorage.setItem("chosenCard", JSON.stringify(card));
+    }
+  },
   data: function() {
     return {
-      cards: [
-        {
-          color: "#974FD6",
-          cardnumber: "1234 5678 9101 1213",
-          cardholder: "CARDHOLDER NAME",
-          cardname: "CHRISTOFFER WALLENBERG",
-          validthru: "VALID THRU",
-          validdate: "10/23",
-          vendor: "blockchain"
-        },
-        {
-          color: "#444343",
-          cardnumber: "1234 5678 9101 0000",
-          cardholder: "CARDHOLDER NAME",
-          cardname: "CHRISTOFFER WALLENBERG",
-          validthru: "VALID THRU",
-          validdate: "10/23",
-          vendor: "ninja"
-        }
-      ]
+      cards: JSON.parse(localStorage.getItem("cards")) || [],
+      chosenCard: JSON.parse(localStorage.getItem("chosenCard")) || null
     };
   },
   components: {

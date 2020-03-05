@@ -1,5 +1,5 @@
 <template>
-  <div class="cardWrapper">
+  <div class="cardWrapper" v-on:click="onClick()">
     <div class="card" v-bind:style="{ backgroundColor: color }">
       <div class="imgWrapper">
         <blippLogo class="blippLogo" />
@@ -21,12 +21,12 @@
       <p class="cardnumber">{{ cardnumber }}</p>
       <div class="nameAndDateWrapper">
         <div class="cardHolderAndNameWrapper">
-          <p class="cardholder">{{ cardholder }}</p>
-          <p class="cardname">{{ cardname }}</p>
+          <p class="cardholder">CARDHOLDER NAME</p>
+          <p class="cardname">{{ cardname.toUpperCase() }}</p>
         </div>
         <div class="validThruAndDateWrapper">
-          <p class="validthru">{{ validthru }}</p>
-          <p class="validdate">{{ validdate }}</p>
+          <p class="validthru">VALID THRU</p>
+          <p class="validdate">{{ validdate.toUpperCase() }}</p>
         </div>
       </div>
     </div>
@@ -47,7 +47,8 @@ export default {
     validthru: String,
     validdate: String,
     color: String,
-    vendor: String
+    vendor: String,
+    onClick: Function
   },
   components: {
     blippLogo,
@@ -63,7 +64,6 @@ export default {
   display: flex;
   justify-content: center;
   border-radius: 1em;
-  background-color: "transparent";
   box-shadow: 2px 2px 0px 0px rgba(0.5, 0.5, 0.5, 0.2);
 }
 .card {

@@ -11,8 +11,8 @@
       validthru="VALID THRU"
       validdate="MM/YY"
     />
-    <cardForm />
-    <button class="addCard"></button>
+    <!-- addNewCard är en funktion som blir tillgänglig för komponenten CardForm via dess `props` -->
+    <CardForm v-bind:addNewCard="addNewCard" />
   </div>
 </template>
 <script>
@@ -20,7 +20,24 @@ import Header from "../components/Header.vue";
 import Card from "../components/Card.vue";
 import CardForm from "../components/CardForm.vue";
 export default {
-  components: { Header, Card, CardForm }
+  components: { Header, Card, CardForm },
+
+  methods: {
+    addNewCard: function(cardObject) {
+      let cards = JSON.parse(localStorage.getItem("cards")) || [];
+      let card = {
+        cardnumber: cardObject.cardnumber,
+        cardname: cardObject.name,
+        validdate: cardObject.expiresAt,
+        color: cardObject.color,
+        vendor: cardObject.vendor
+      };
+      cards.push(card);
+      localStorage.setItem("cards", JSON.stringify(cards));
+      localStorage.setItem("chosenCard", JSON.stringify(card));
+      window.location = "/";
+    }
+  }
 };
 </script>
 <style scoped>
