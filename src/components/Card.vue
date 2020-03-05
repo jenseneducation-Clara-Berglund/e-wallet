@@ -62,11 +62,14 @@ export default {
 .cardWrapper {
   display: flex;
   justify-content: center;
+  border-radius: 1em;
+  background-color: "transparent";
+  box-shadow: 2px 2px 0px 0px rgba(0.5, 0.5, 0.5, 0.2);
 }
 .card {
   width: 20em;
   height: 14em;
-  border-radius: 5%;
+  border-radius: 1em;
   display: flex;
   flex-direction: column;
 }
