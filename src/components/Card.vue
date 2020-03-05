@@ -17,17 +17,16 @@
           <vendorNinja class="vendor" />
         </div>
       </div>
-      <div style="flex-direction: column">
-        <p class="cardnumber">{{ cardnumber }}</p>
-        <div class="nameAndDateWrapper">
-          <div class="cardHolderAndNameWrapper">
-            <p class="cardholder">{{ cardholder }}</p>
-            <p class="cardname">{{ cardname }}</p>
-          </div>
-          <div class="validThruAndDateWrapper">
-            <p class="validthru">{{ validthru }}</p>
-            <p class="validdate">{{ validdate }}</p>
-          </div>
+
+      <p class="cardnumber">{{ cardnumber }}</p>
+      <div class="nameAndDateWrapper">
+        <div class="cardHolderAndNameWrapper">
+          <p class="cardholder">{{ cardholder }}</p>
+          <p class="cardname">{{ cardname }}</p>
+        </div>
+        <div class="validThruAndDateWrapper">
+          <p class="validthru">{{ validthru }}</p>
+          <p class="validdate">{{ validdate }}</p>
         </div>
       </div>
     </div>
@@ -73,6 +72,7 @@ export default {
 }
 
 .cardnumber {
+  text-align: center;
   font-size: 1.7em;
   color: black;
   margin: 0.1em;
@@ -80,41 +80,41 @@ export default {
 
 .nameAndDateWrapper {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   flex-direction: row;
+  margin: 1em;
 }
 .cardHolderAndNameWrapper {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-
-  margin: 0.5em;
 }
 .validThruAndDateWrapper {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  margin: 0.5em;
 }
 .cardholder {
   font-size: 0.7em;
   color: black;
-  margin: 0.3em;
+  margin: 0;
+  text-align: left;
 }
 .validthru {
   font-size: 0.7em;
   color: black;
-  margin: auto;
+  margin: 0;
+  text-align: right;
 }
 .cardname {
   font-size: 1em;
   color: black;
-  margin: auto;
+  margin: 0;
+  text-align: left;
 }
 .validdate {
   color: black;
   font-size: 1em;
-  margin: auto;
+  margin: 0;
+  text-align: right;
 }
 .imgWrapper {
   display: flex;
