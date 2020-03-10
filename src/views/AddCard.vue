@@ -41,7 +41,15 @@ export default {
 };
 </script>
 <style scoped>
+.addCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 h2 {
+  display: flex;
+  flex-direction: center;
   font-size: 0.5em;
 }
 </style>

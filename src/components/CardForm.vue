@@ -1,9 +1,17 @@
 <template>
   <div class="formContainer">
+    <p>CARD NUMBER</p>
     <input v-model="cardnumber" class="inputCardNumber" type="text" />
+    <p>CARDHOLDER NAME</p>
     <input v-model="name" class="inputCardName" style="text" />
-    <input v-model="expiresAt" style="text" />
-    <input v-model="cvc" style="text" />
+    <p>VALID THRU</p>
+    <div class="validThruAndCvcContainer">
+      <input v-model="expiresAt" style="text" />
+      <p>CVC</p>
+
+      <input v-model="cvc" style="text" />
+    </div>
+    <p>VENDOR</p>
     <select v-model="vendor" name="vendors">
       <option value="bitcoin">BitcoinBank</option>
       <option value="evil">EvilBank</option>
@@ -45,6 +53,14 @@ export default {
   display: flex;
   flex-direction: column;
 }
+
+.validThruAndCvcContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-radius: 1em;
+}
+
 .addANewCardButton {
   width: 29em;
   height: 6em;
@@ -52,5 +68,32 @@ export default {
   border-radius: 1em;
   border-color: black;
   font-weight: bolder;
+}
+
+.inputCardNumber {
+  width: 29em;
+  height: 3em;
+  border-radius: 1em;
+}
+
+.inputCardName {
+  width: 29em;
+  height: 3em;
+  border-radius: 1em;
+}
+
+input {
+  width: 10em;
+  height: 3em;
+  border-radius: 1em;
+}
+select {
+  width: 29em;
+  height: 3em;
+  border-radius: 1em;
+}
+
+p {
+  font-size: 0.7em;
 }
 </style>
