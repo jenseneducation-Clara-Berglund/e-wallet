@@ -4,7 +4,6 @@
     <h2>ACTIVE CARD</h2>
     <Card
       v-if="chosenCard !== null"
-      :color="chosenCard.color"
       :cardnumber="chosenCard.cardnumber"
       :cardname="chosenCard.cardname"
       :validdate="chosenCard.validdate"
@@ -14,12 +13,21 @@
 
     <CardStack
       style="margin-top:2em;"
-      v-bind:cards="cards.filter(c => c.cardnumber !== chosenCard.cardnumber)"
+      v-bind:cards="cards"
       v-bind:chooseCard="chooseCard"
     />
 
-    <button v-on:click="addNewCard" class="addANewCardButton">
-      ADD A NEW CARD
+    <button
+      @mouseover="buttonMouseOver = true"
+      @mouseleave="buttonMouseOver = false"
+      v-on:click="addNewCard"
+      v-bind:style="{
+        color: buttonMouseOver ? 'white' : 'black',
+        background: buttonMouseOver ? 'black' : 'white'
+      }"
+      class="addANewCardButton"
+    >
+      ADD CARD
     </button>
   </div>
 </template>
@@ -43,7 +51,8 @@ export default {
   data: function() {
     return {
       cards: JSON.parse(localStorage.getItem("cards")) || [],
-      chosenCard: JSON.parse(localStorage.getItem("chosenCard")) || null
+      chosenCard: JSON.parse(localStorage.getItem("chosenCard")) || null,
+      buttonMouseOver: false
     };
   },
   components: {
@@ -70,11 +79,13 @@ CardStack {
 }
 
 .addANewCardButton {
-  width: 29em;
-  height: 6em;
-  margin-top: 4em;
-  border-radius: 1em;
+  font-family: PT Mono, monospace;
+  height: 4em;
+  padding: 0em 6em;
+  margin-top: 2em;
+  border-radius: 0.6em;
   border-color: black;
   font-weight: bolder;
+  font-size: 18px;
 }
 </style>

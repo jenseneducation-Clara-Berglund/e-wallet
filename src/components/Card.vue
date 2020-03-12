@@ -1,9 +1,11 @@
 <template>
   <div class="cardWrapper" v-on:click="onClick()">
-    <div class="card" v-bind:style="{ backgroundColor: color }">
+    <div
+      class="card"
+      v-bind:style="{ backgroundColor: getBackgroundColorForVendor(vendor) }"
+    >
       <div class="imgWrapper">
         <blippLogo class="blippLogo" />
-
         <div v-if="this.vendor === 'bitcoin'">
           <vendorBitcoin class="vendor" />
         </div>
@@ -18,15 +20,40 @@
         </div>
       </div>
 
-      <p class="cardnumber">{{ cardnumber }}</p>
+      <p
+        class="cardnumber"
+        v-bind:style="{ color: getTextColorForVendor(vendor) }"
+      >
+        {{ formatCardNumber(cardnumber) }}
+      </p>
       <div class="nameAndDateWrapper">
         <div class="cardHolderAndNameWrapper">
-          <p class="cardholder">CARDHOLDER NAME</p>
-          <p class="cardname">{{ cardname.toUpperCase() }}</p>
+          <p
+            class="cardholder"
+            v-bind:style="{ color: getTextColorForVendor(vendor) }"
+          >
+            CARDHOLDER NAME
+          </p>
+          <p
+            class="cardname"
+            v-bind:style="{ color: getTextColorForVendor(vendor) }"
+          >
+            {{ !!cardname ? cardname.toUpperCase() : "" }}
+          </p>
         </div>
         <div class="validThruAndDateWrapper">
-          <p class="validthru">VALID THRU</p>
-          <p class="validdate">{{ validdate.toUpperCase() }}</p>
+          <p
+            class="validthru"
+            v-bind:style="{ color: getTextColorForVendor(vendor) }"
+          >
+            VALID THRU
+          </p>
+          <p
+            class="validdate"
+            v-bind:style="{ color: getTextColorForVendor(vendor) }"
+          >
+            {{ !!validdate ? validdate.toUpperCase() : "" }}
+          </p>
         </div>
       </div>
     </div>
@@ -42,13 +69,47 @@ export default {
   name: "Card",
   props: {
     cardnumber: String,
-    cardholder: String,
     cardname: String,
-    validthru: String,
     validdate: String,
-    color: String,
     vendor: String,
     onClick: Function
+  },
+  methods: {
+    getBackgroundColorForVendor: function(vendor) {
+      switch (vendor) {
+        case "ninja":
+          return "#222";
+        case "evil":
+          return "#f33355";
+        case "blockchain":
+          return "#8b58f9";
+        case "bitcoin":
+          return "#ffae34";
+        default:
+          return "#d0d0d0";
+      }
+    },
+    getTextColorForVendor: function(vendor) {
+      switch (vendor) {
+        case "ninja":
+          return "#fff";
+        case "evil":
+          return "#fff";
+        case "blockchain":
+          return "#fff";
+        case "bitcoin":
+          return "#000";
+        default:
+          return "#000";
+      }
+    },
+    formatCardNumber: function(numberString) {
+      if (numberString.length === 0) {
+        return "";
+      }
+      var chunks = numberString.match(/.{1,4}/g);
+      return chunks.join(" ");
+    }
   },
   components: {
     blippLogo,
@@ -76,7 +137,8 @@ export default {
 
 .cardnumber {
   text-align: center;
-  font-size: 1.7em;
+  font-size: 1.6em;
+  height: 3em;
   color: black;
   margin: 0.1em;
 }
@@ -112,12 +174,14 @@ export default {
   color: black;
   margin: 0;
   text-align: left;
+  height: 1.2em;
 }
 .validdate {
   color: black;
   font-size: 1em;
   margin: 0;
   text-align: right;
+  height: 1.2em;
 }
 .imgWrapper {
   display: flex;
